@@ -1,7 +1,9 @@
 package com.makridin.instazoo.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.makridin.instazoo.entity.enums.Roles;
+import com.makridin.instazoo.payload.request.SignupRequest;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +13,7 @@ import java.util.*;
 
 @Data
 @Entity
+@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +29,7 @@ public class User implements UserDetails {
     @Column(columnDefinition = "text")
     private String bio;
     @Column(length = 3000)
+    @ToString.Exclude
     private String password;
     @ElementCollection(targetClass = Roles.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
