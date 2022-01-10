@@ -1,5 +1,6 @@
 package com.makridin.instazoo.service;
 
+import com.makridin.instazoo.dto.UserDTO;
 import com.makridin.instazoo.entity.User;
 import com.makridin.instazoo.entity.enums.Roles;
 import com.makridin.instazoo.exceptions.UserExistException;
@@ -8,8 +9,11 @@ import com.makridin.instazoo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Service
 public class UserService {
@@ -34,6 +38,23 @@ public class UserService {
             LOG.error("error during registration. {}", ex.getMessage());
             throw new UserExistException("The user " + user.getUsername() + " is already existed");
         }
+    }
+
+    public User updateUser(UserDTO userDto, Principal principal) {
+        User user = getUserByPrincipal(principal);
+        user.setFirstname(userDto.getFirstname());
+        user.setLastname(userDto.getLastname());
+        user.setBio(userDto.getBio());
+        return userRepository.save(user);
+    }
+
+    public User getCurrentUser(Principal principal) {
+        return getUserByPrincipal(principal);
+    }
+
+    private User getUserByPrincipal(Principal principal) {
+        return userRepository.findUserByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User with that username wasn't found"));
     }
 
     private User getUser(SignupRequest request) {
