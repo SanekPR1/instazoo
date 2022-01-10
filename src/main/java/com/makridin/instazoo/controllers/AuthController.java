@@ -41,7 +41,7 @@ public class AuthController {
             @Valid @RequestBody SignupRequest request, BindingResult result)
     {
         ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (ObjectUtils.isEmpty(errors)) {
+        if (!ObjectUtils.isEmpty(errors)) {
             return errors;
         }
 
@@ -55,11 +55,11 @@ public class AuthController {
             @Valid @RequestBody LoginRequest request, BindingResult result)
     {
         ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (ObjectUtils.isEmpty(errors)) {
+        if (!ObjectUtils.isEmpty(errors)) {
             return errors;
         }
 
-        Authentication authentication = authenticationManager.authenticate(
+         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = SecurityConstants.TOKEN_PREFIX + tokenProvider.generateToken(authentication);

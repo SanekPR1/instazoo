@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = UniqueUsernameValidator.class)
 @Documented
 public @interface UniqueUsername {
-    String message() default "This email is already used";
+    String message() default "This username is already used";
 
     Class<?>[] groups() default{};
 
