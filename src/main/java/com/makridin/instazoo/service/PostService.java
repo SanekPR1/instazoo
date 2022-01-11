@@ -7,11 +7,9 @@ import com.makridin.instazoo.entity.User;
 import com.makridin.instazoo.exceptions.PostNotFoundException;
 import com.makridin.instazoo.repository.ImageRepository;
 import com.makridin.instazoo.repository.PostRepository;
-import com.makridin.instazoo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -52,10 +50,15 @@ public class PostService {
          return postRepository.findAllByOrderByCreatedDateDesc();
     }
 
-    public Post getPostById(Long postId, Principal principal) {
+    public Post getPostByIdAndUser(Long postId, Principal principal) {
         User user = userService.getCurrentUser(principal);
         return postRepository.findPostByIdAndUser(postId, user)
                 .orElseThrow(() -> new PostNotFoundException("The post wasn't found for user " + user.getUsername()));
+    }
+
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
     }
 
     public List<Post> getAllPostsForUser(Principal principal) {
@@ -74,7 +77,7 @@ public class PostService {
     }
 
     public void deletePost(Long id, Principal principal) {
-         Post post = getPostById(id, principal);
+         Post post = getPostByIdAndUser(id, principal);
          Optional<ImageModel> image = imageRepository.findByPostId(post.getId());
          postRepository.delete(post);
          image.ifPresent(imageRepository::delete);
