@@ -1,9 +1,7 @@
 package com.makridin.instazoo.facade;
 
 import com.makridin.instazoo.dto.CommentDTO;
-import com.makridin.instazoo.dto.PostDTO;
 import com.makridin.instazoo.entity.Comment;
-import com.makridin.instazoo.entity.Post;
 import org.springframework.stereotype.Component;
 
 @Component
