@@ -66,11 +66,12 @@ public class PostService {
         return postRepository.findAllByUserOrderByCreatedDateDesc(user);
     }
 
-    public Post likePost(Long id, String username) {
-         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
+    public Post likePost(Long postId, Principal principal) {
+        User user = userService.getCurrentUser(principal);
+         Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
          Set<String> usernames = post.getLikedUsers();
-         if(!usernames.remove(username)) {
-             usernames.add(username);
+         if(!usernames.remove(user.getUsername())) {
+             usernames.add(user.getUsername());
          }
          post.setLikes(usernames.size());
         return postRepository.save(post);

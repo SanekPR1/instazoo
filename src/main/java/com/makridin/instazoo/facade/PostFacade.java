@@ -4,6 +4,9 @@ import com.makridin.instazoo.dto.PostDTO;
 import com.makridin.instazoo.entity.Post;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class PostFacade {
 
@@ -17,5 +20,11 @@ public class PostFacade {
                 .username(post.getUser().getUsername())
                 .userLiked(post.getLikedUsers())
                 .build();
+    }
+
+    public List<PostDTO> usersToUserDtos(List<Post> posts) {
+        return posts.stream()
+                .map(this::userToUserDto)
+                .collect(Collectors.toList());
     }
 }
