@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class PostFacade {
 
-    public PostDTO userToUserDto(Post post) {
+    public PostDTO postToPostDto(Post post) {
         return PostDTO.builder()
                 .id(post.getId())
                 .caption(post.getCaption())
@@ -22,9 +22,9 @@ public class PostFacade {
                 .build();
     }
 
-    public List<PostDTO> usersToUserDtos(List<Post> posts) {
+    public List<PostDTO> postsToPostDtos(List<Post> posts) {
         return posts.stream()
-                .map(this::userToUserDto)
+                .map(this::postToPostDto)
                 .collect(Collectors.toList());
     }
 }

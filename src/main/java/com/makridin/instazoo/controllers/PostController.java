@@ -38,17 +38,17 @@ public class PostController {
         if (!ObjectUtils.isEmpty(errors)) {
             return errors;
         }
-        return ResponseEntity.ok(postFacade.userToUserDto(postService.createPost(psotDto, principal)));
+        return ResponseEntity.ok(postFacade.postToPostDto(postService.createPost(psotDto, principal)));
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<PostDTO>> getAllPosts() {
-        return ResponseEntity.ok(postFacade.usersToUserDtos(postService.getAllPosts()));
+        return ResponseEntity.ok(postFacade.postsToPostDtos(postService.getAllPosts()));
     }
 
     @GetMapping("/user/posts")
     public ResponseEntity<List<PostDTO>> getAllUserPosts(Principal principal) {
-        return ResponseEntity.ok(postFacade.usersToUserDtos(postService.getAllPostsForUser(principal)));
+        return ResponseEntity.ok(postFacade.postsToPostDtos(postService.getAllPostsForUser(principal)));
     }
 
     @PostMapping("/{postId}/like")
@@ -56,7 +56,7 @@ public class PostController {
             @PathVariable("postId") Long postId,
             Principal principal
     ) {
-        return ResponseEntity.ok(postFacade.userToUserDto(postService.likePost(postId, principal)));
+        return ResponseEntity.ok(postFacade.postToPostDto(postService.likePost(postId, principal)));
     }
 
 
