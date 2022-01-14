@@ -1,7 +1,6 @@
 package com.makridin.instazoo.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.makridin.instazoo.entity.enums.Roles;
-import com.makridin.instazoo.payload.request.SignupRequest;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;

@@ -2,7 +2,6 @@ package com.makridin.instazoo.controllers;
 
 import com.makridin.instazoo.dto.CommentDTO;
 import com.makridin.instazoo.facade.CommentFacade;
-import com.makridin.instazoo.payload.response.MessageResponse;
 import com.makridin.instazoo.service.CommentService;
 import com.makridin.instazoo.validators.ResponseErrorValidation;
 import org.springframework.beans.factory.annotation.Autowired;
