@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
+import { UPDATE, API_URL } from './service-consts';
 
+export const USER_API = API_URL + 'user/';
 
-const USER_API = 'http://localhost:8080/api/user/';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +22,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    return this.http.put(USER_API + 'update', user);
+    return this.http.put(USER_API + UPDATE, user);
   }
 
 }
