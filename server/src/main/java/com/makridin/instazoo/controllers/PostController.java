@@ -51,14 +51,13 @@ public class PostController {
         return ResponseEntity.ok(postFacade.postsToPostDtos(postService.getAllPostsForUser(principal)));
     }
 
-    @PostMapping("/{postId}/like")
+    @PutMapping("/{postId}/like")
     public ResponseEntity<PostDTO> likePost(
             @PathVariable("postId") Long postId,
             Principal principal
     ) {
         return ResponseEntity.ok(postFacade.postToPostDto(postService.likePost(postId, principal)));
     }
-
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<Object> deletePost(
