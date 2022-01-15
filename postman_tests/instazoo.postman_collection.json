@@ -1,0 +1,751 @@
+{
+	"info": {
+		"_postman_id": "f875b4c4-f977-49a3-afe2-49b75eb20937",
+		"name": "instazoo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autherization",
+			"item": [
+				{
+					"name": "SignIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"WrongTest\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"sanekpr1@test.io\",\n    \"firstname\": \"Alex\",\n    \"lastname\": \"Mak\",\n    \"username\": \"SanekPR1\",\n    \"password\": \"test\",\n    \"confirmPassword\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request with wrong user name and password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"WrongTest\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getCurrentUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTAyNTk0LCJleHAiOjE2NDIxMDMxOTR9.IfdROdfVOVwTVdZYlMmfOlkL27iTBPad_Oin2ntIykjcWU1ZgmwQAYo_3y0YhVf0Vf44MO1_VxspqkqWLdvCXQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTAwMjE4LCJleHAiOjE2NDIxMDA4MTh9.OxyMi9GJ0bvG5no2qlKn0q4psNJrMU2x4zLQHPZu4-5r0cJmcxV_5waF_OICW3N6I86EBeEQDLi3F88t5aV3gA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Cucaracha\",\r\n    \"firstname\": \"Aleksandr\",\r\n    \"lastname\": \"Makridin\",\r\n    \"email\":\"san@mail.ru\",\r\n    \"bio\":\"I am 37 years old\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA0MjI3LCJleHAiOjE2NDIxMDQ4Mjd9.LxOejwLGMDIVkKOkD7qQJ51A0J47CrDIAtRb6w9YTFOTgGtpg9snABeZlXTaCcfKauP4sigks2wCxPM6-VJNrg"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/user/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTAwODI2LCJleHAiOjE2NDIxMDE0MjZ9.ub8gr5Hi3Lxd7d9uIuwS8ap_9cJ5YXqYCmiw7tVd0dqCUTG-_NoJJidhlDJcbcAP-SemsIr8T79j821P7VpHjg"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Third title\",\r\n    \"caption\": \"my third caption\",\r\n    \"location\": \"Spain, Andalucia, Malaga\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/post/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTAzMTI5LCJleHAiOjE2NDIxMDM3Mjl9.VngnzjOwbmpx5n5lmKB01Oz52BCqoAGr5hpitLbaYMBTZ2P4AqZAjoQhlbcO3hzuaLhRptArpMGOAhfgahLzgA"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/post/:postId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all posts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA0Mzk2LCJleHAiOjE2NDIxMDQ5OTZ9.fcGTrtGpkICAj9hq3d2Kqds832ju-TjzUaunyL-TcPYoLdanGkw74bjNq1GnwxnzXnAbhN5Sr-fuWlSN0CUkVA"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/post/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all user posts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA0Mzk2LCJleHAiOjE2NDIxMDQ5OTZ9.fcGTrtGpkICAj9hq3d2Kqds832ju-TjzUaunyL-TcPYoLdanGkw74bjNq1GnwxnzXnAbhN5Sr-fuWlSN0CUkVA"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/post/user/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								"user",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA0Mzk2LCJleHAiOjE2NDIxMDQ5OTZ9.fcGTrtGpkICAj9hq3d2Kqds832ju-TjzUaunyL-TcPYoLdanGkw74bjNq1GnwxnzXnAbhN5Sr-fuWlSN0CUkVA"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/post/:postId/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"post",
+								":postId",
+								"like"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "Upload image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA1OTE2LCJleHAiOjE2NDIxMDY1MTZ9.VDJ9VO95HIGCy2TlGoGorr3-OlOOPOYZ3R5J-BuLS9JLtSCVTkyR5373FfjjY64PeNkX5S5PwDqB9DeM3VsN1g"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/SanekPR1/Pictures/cheshir.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/image/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostImageById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTAwODI2LCJleHAiOjE2NDIxMDE0MjZ9.ub8gr5Hi3Lxd7d9uIuwS8ap_9cJ5YXqYCmiw7tVd0dqCUTG-_NoJJidhlDJcbcAP-SemsIr8T79j821P7VpHjg"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "@\"/C:/Users/SanekPR1/Pictures/cheshir.jpg\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/image/:postId/image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"image",
+								":postId",
+								"image"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfileImage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA1OTE2LCJleHAiOjE2NDIxMDY1MTZ9.VDJ9VO95HIGCy2TlGoGorr3-OlOOPOYZ3R5J-BuLS9JLtSCVTkyR5373FfjjY64PeNkX5S5PwDqB9DeM3VsN1g"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "@\"/C:/Users/SanekPR1/Pictures/cheshir.jpg\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/image/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"image",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload post image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA0NzAxLCJleHAiOjE2NDIxMDUzMDF9.9SOVHHsP1kmfcs0nOfp9QESbsUhdk32AGTZngsp22YNU-VvUHct-2jPDbehG029P4n9QDuO3vEZF4C6iqn9tNg"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/загрузки/picture-of-clifford-coloring-page.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/image/:postId/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"image",
+								":postId",
+								"upload"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostImage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA1OTE2LCJleHAiOjE2NDIxMDY1MTZ9.VDJ9VO95HIGCy2TlGoGorr3-OlOOPOYZ3R5J-BuLS9JLtSCVTkyR5373FfjjY64PeNkX5S5PwDqB9DeM3VsN1g"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "@\"/C:/Users/SanekPR1/Pictures/cheshir.jpg\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/image/:postId/image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"image",
+								":postId",
+								"image"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTAyNTk0LCJleHAiOjE2NDIxMDMxOTR9.IfdROdfVOVwTVdZYlMmfOlkL27iTBPad_Oin2ntIykjcWU1ZgmwQAYo_3y0YhVf0Vf44MO1_VxspqkqWLdvCXQ"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"I'm the first one here\",\n    \"username\": \"come on\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/comment/:postId/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"comment",
+								":postId",
+								"create"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete a comment by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA2MzAzLCJleHAiOjE2NDIxMDY5MDN9.RGpg2-6XbTL3uBZA0uXLJuEn_KZ5P6rbLDfVx7p2iF3Zp_J47ABQk4EIAlWzFAske95ZnrgTAUcNPbSVt7lKHg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/comment/:commentId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"comment",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "commentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all post comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiZmlyc3RuYW1lIjpudWxsLCJpZCI6IjQiLCJ1c2VybmFtZSI6InNhbmVrcHIxQHRlc3QuaW8iLCJsYXN0bmFtZSI6bnVsbCwiaWF0IjoxNjQyMTA2MzAzLCJleHAiOjE2NDIxMDY5MDN9.RGpg2-6XbTL3uBZA0uXLJuEn_KZ5P6rbLDfVx7p2iF3Zp_J47ABQk4EIAlWzFAske95ZnrgTAUcNPbSVt7lKHg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/comment/:postId/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"comment",
+								":postId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
