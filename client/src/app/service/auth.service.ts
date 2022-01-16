@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/User';
+import { LoginForm, User } from '../models/User';
 import { API_URL } from './service-consts';
 
 export const AUTH_API = API_URL + 'auth/';
@@ -13,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): Observable<any> {
+  login(user: LoginForm): Observable<any> {
     return this.http.post(AUTH_API + 'signin', {
       username: user.username,
       password: user.password
