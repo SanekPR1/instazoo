@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginForm, User } from '../models/User';
+import { LoginForm, RegisterForm } from '../models/User';
 import { API_URL } from './service-consts';
 
 export const AUTH_API = API_URL + 'auth/';
@@ -20,7 +20,7 @@ export class AuthService {
     });
   }
 
-  register(user: User): Observable<any> {
+  register(user: RegisterForm): Observable<any> {
     return this.http.post(AUTH_API + 'signup', {
       username: user.username,
       email: user.email,

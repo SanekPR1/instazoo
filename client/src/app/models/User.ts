@@ -13,3 +13,12 @@ export interface LoginForm {
     username: string;
     password: string;
 }
+
+export interface RegisterForm {
+    email: string;
+    username: string;
+    firstname: string;
+    lastname: string;
+    password: string;
+    confirmedPassword: string;
+}
