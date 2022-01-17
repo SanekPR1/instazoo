@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   createLoginForm(): FormGroup {
     return this.fb.group({
       username: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])]
     })
   }
 
@@ -52,6 +52,10 @@ export class LoginComponent implements OnInit {
       console.error(error);
       this.notificationService.showSncackBar(error);
     });
+  }
+
+  register() {
+    this.router.navigate(['/register']);
   }
 
 }
