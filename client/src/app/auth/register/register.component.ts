@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
       window.location.reload();
     }, error => {
       console.error(error);
-      this.notificationService.showSncackBar(error);
+      this.notificationService.showSncackBar("Something went wrong");
     });
   }
 

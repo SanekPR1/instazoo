@@ -27,7 +27,7 @@ export class AuthService {
       firstname: user.firstname,
       lastname: user.lastname,
       password: user.password,
-      confirmedPassword: user.confirmedPassword
+      confirmPassword: user.confirmedPassword
     });
   }
 }
