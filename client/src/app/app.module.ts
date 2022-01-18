@@ -11,13 +11,15 @@ import { authInterceptorProviders } from './helper/auth-interceptor.service';
 import { authErrorInterceptorProviders } from './helper/error-interceptor.service';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { NavigationComponent } from './layout/navigation/navigation.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
