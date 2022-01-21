@@ -1,7 +1,9 @@
 package com.makridin.instazoo.controllers;
 
 import com.makridin.instazoo.entity.ImageModel;
+import com.makridin.instazoo.payload.response.MessageResponse;
 import com.makridin.instazoo.service.ImageService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,23 +24,23 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadUserImage(
+    @PostMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MessageResponse> uploadUserImage(
             @RequestParam MultipartFile file,
             Principal principal
     ) throws IOException {
         imageService.uploadProfileImage(file, principal);
-        return ResponseEntity.ok(SUCCESS_MESSAGE);
+        return ResponseEntity.ok(new MessageResponse(SUCCESS_MESSAGE));
     }
 
-    @PostMapping("/{postId}/upload")
-    public ResponseEntity<String> uploadPostImage(
+    @PostMapping(value = "/{postId}/upload", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MessageResponse> uploadPostImage(
             @PathVariable("postId") Long postId,
             @RequestParam MultipartFile file,
             Principal principal
     ) throws IOException {
         imageService.uploadPostImage(file, principal, postId);
-        return ResponseEntity.ok(SUCCESS_MESSAGE);
+        return ResponseEntity.ok(new MessageResponse(SUCCESS_MESSAGE));
     }
 
     @GetMapping("/profile")
