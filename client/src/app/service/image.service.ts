@@ -27,7 +27,7 @@ export class ImageService {
   }
 
   getProfileImage(): Observable<any> {
-    return this.http.get(IMG_API + "/profile");
+    return this.http.get(IMG_API + "profile");
   }
 
   getPostImage(postId: number): Observable<any> {
