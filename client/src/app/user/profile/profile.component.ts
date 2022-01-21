@@ -39,7 +39,9 @@ export class ProfileComponent implements OnInit {
 
     this.imageService.getProfileImage()
       .subscribe(image => {
-        this.userProfileImage = image.imageBytes;
+        if (image != null) {
+          this.userProfileImage = image.imageBytes;
+        }
       });
   }
 
@@ -72,9 +74,9 @@ export class ProfileComponent implements OnInit {
   onUpload(): void {
     if (this.selectedFile != null) {
       this.imageService.uploadProfileImage(this.selectedFile)
-        .subscribe(data => {
+        .subscribe(() => {
           this.notificationService.showSncackBar('Profile image was uploaded');
-        })
+        });
     }
   }
 
