@@ -64,8 +64,6 @@ export class UserPostsComponent implements OnInit {
 
   likePost(postId: number, postIndex: number): void {
     const post = this.posts[postIndex];
-    console.log(post);
-    console.log(post.userLiked);
 
     if (!post.userLiked.includes(this.user.username)) {
       this.postService.likePost(postId)
@@ -81,6 +79,32 @@ export class UserPostsComponent implements OnInit {
           this.notificationService.showSncackBar('Unliked!');
         });
     }
+  }
+
+  deletePost(post: Post, index: number): void {
+    const result = confirm('Do you really want to delete this post?');
+    if (result) {
+      this.postService.deletePost(post.id)
+        .subscribe(() => {
+          this.posts.splice(index, 1);
+          this.notificationService.showSncackBar('Post was deleted successfully!');
+        });
+    }
+  }
+
+  deleteComment(commentId: number, postIndex: number, commentIndex: number): void {
+    const post = this.posts[postIndex];
+    console.log(`commentId = ${commentId} postIndex = ${postIndex} commentIndex = ${commentIndex}`);
+    console.log(`post = ${post}`);
+    console.log(`post.comments 1 = ${post.comments}`);
+
+    this.commentService.deletePostComment(commentId)
+      .subscribe(() => {
+        console.log(`post.comments = ${post.comments}`);
+        post.comments.splice(commentIndex, 1);
+        console.log(`post.comments = ${post.comments}`);
+        this.notificationService.showSncackBar('Comment was deleted successfully');
+      })
   }
 
   postComment(message: string, postId: number, postIndex: number) {
