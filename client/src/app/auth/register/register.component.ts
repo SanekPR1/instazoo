@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) {
-    if (this.tokenService.getUser) {
+    if (this.tokenService.getUser()) {
       this.router.navigate(['main']);
     }
   }
