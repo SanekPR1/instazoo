@@ -4,10 +4,10 @@ export interface Post {
     id?: number;
     title: string;
     caption: string;
-    location: string;
+    location?: string;
     image?: File;
     likes?: number;
     userLiked?: string[];
-    comments: Comment[];
+    comments?: Comment[];
     username?: string;
 }
