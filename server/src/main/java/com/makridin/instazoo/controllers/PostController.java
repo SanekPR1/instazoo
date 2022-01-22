@@ -2,6 +2,7 @@ package com.makridin.instazoo.controllers;
 
 import com.makridin.instazoo.dto.PostDTO;
 import com.makridin.instazoo.facade.PostFacade;
+import com.makridin.instazoo.payload.response.MessageResponse;
 import com.makridin.instazoo.service.PostService;
 import com.makridin.instazoo.validators.ResponseErrorValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,6 @@ public class PostController {
             Principal principal
     ) {
         postService.deletePost(postId, principal);
-        return ResponseEntity.ok("Post was deleted");
+        return ResponseEntity.ok(new MessageResponse("Post was deleted"));
     }
 }
