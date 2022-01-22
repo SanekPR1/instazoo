@@ -69,14 +69,14 @@ export class UserPostsComponent implements OnInit {
       this.postService.likePost(postId)
         .subscribe(() => {
           post.userLiked.push(this.user.username);
-          this.notificationService.showSncackBar('Liked!');
+          this.notificationService.showSnackBar('Liked!');
         });
     } else {
       this.postService.likePost(postId)
         .subscribe(() => {
           const index = post.userLiked.indexOf(this.user.username, 0);
           post.userLiked.splice(index, 1);
-          this.notificationService.showSncackBar('Unliked!');
+          this.notificationService.showSnackBar('Unliked!');
         });
     }
   }
@@ -87,7 +87,7 @@ export class UserPostsComponent implements OnInit {
       this.postService.deletePost(post.id)
         .subscribe(() => {
           this.posts.splice(index, 1);
-          this.notificationService.showSncackBar('Post was deleted successfully!');
+          this.notificationService.showSnackBar('Post was deleted successfully!');
         });
     }
   }
@@ -103,7 +103,7 @@ export class UserPostsComponent implements OnInit {
         console.log(`post.comments = ${post.comments}`);
         post.comments.splice(commentIndex, 1);
         console.log(`post.comments = ${post.comments}`);
-        this.notificationService.showSncackBar('Comment was deleted successfully');
+        this.notificationService.showSnackBar('Comment was deleted successfully');
       })
   }
 

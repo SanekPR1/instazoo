@@ -21,7 +21,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
       }
 
       const error = err.error.message || err.statusText;
-      this.notificationService.showSncackBar(error);
+      this.notificationService.showSnackBar(error);
       return throwError(error);
     }))
   }

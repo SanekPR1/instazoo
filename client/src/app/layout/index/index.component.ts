@@ -70,14 +70,14 @@ export class IndexComponent implements OnInit {
       this.postService.likePost(postId)
         .subscribe(() => {
           post.userLiked.push(this.user.username);
-          this.notificationService.showSncackBar('Liked!');
+          this.notificationService.showSnackBar('Liked!');
         });
     } else {
       this.postService.likePost(postId)
         .subscribe(() => {
           const index = post.userLiked.indexOf(this.user.username, 0);
           post.userLiked.splice(index, 1);
-          this.notificationService.showSncackBar('Unliked!');
+          this.notificationService.showSnackBar('Unliked!');
         });
     }
   }

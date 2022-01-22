@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
     if (this.selectedFile != null) {
       this.imageService.uploadProfileImage(this.selectedFile)
         .subscribe(() => {
-          this.notificationService.showSncackBar('Profile image was uploaded');
+          this.notificationService.showSnackBar('Profile image was uploaded');
         });
     }
   }

@@ -51,12 +51,12 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password,
       confirmedPassword: this.registerForm.value.confirmPassword
     }).subscribe(data => {
-      this.notificationService.showSncackBar(data);
+      this.notificationService.showSnackBar(data);
       this.router.navigate(['/']);
       window.location.reload();
     }, error => {
       console.error(error);
-      this.notificationService.showSncackBar("Something went wrong");
+      this.notificationService.showSnackBar("Something went wrong");
     });
   }
 

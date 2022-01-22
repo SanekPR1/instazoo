@@ -45,12 +45,12 @@ export class LoginComponent implements OnInit {
       console.log(data);
       this.tokenService.saveToken(data.token);
       this.tokenService.saveUser(data);
-      this.notificationService.showSncackBar('Successfully logged in');
+      this.notificationService.showSnackBar('Successfully logged in');
       this.router.navigate(['/']);
       window.location.reload();
     }, error => {
       console.error(error);
-      this.notificationService.showSncackBar(error);
+      this.notificationService.showSnackBar(error);
     });
   }
 
