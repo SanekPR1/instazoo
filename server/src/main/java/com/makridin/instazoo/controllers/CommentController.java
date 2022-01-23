@@ -1,7 +1,6 @@
 package com.makridin.instazoo.controllers;
 
 import com.makridin.instazoo.dto.CommentDTO;
-import com.makridin.instazoo.facade.CommentFacade;
 import com.makridin.instazoo.payload.response.MessageResponse;
 import com.makridin.instazoo.service.CommentService;
 import com.makridin.instazoo.validators.ResponseErrorValidation;
@@ -22,15 +21,13 @@ public class CommentController {
 
     private final ResponseErrorValidation errorValidation;
     private final CommentService commentService;
-    private final CommentFacade commentFacade;
 
     @Autowired
     public CommentController(
-            ResponseErrorValidation errorValidation, CommentService commentService, CommentFacade commentFacade)
+            ResponseErrorValidation errorValidation, CommentService commentService)
     {
         this.errorValidation = errorValidation;
         this.commentService = commentService;
-        this.commentFacade = commentFacade;
     }
 
     @PostMapping("/{postId}/create")
@@ -46,13 +43,12 @@ public class CommentController {
         }
 
         return ResponseEntity.ok(
-                commentFacade.commentToCommentDto(
-                        commentService.saveComment(commentDTO, principal, postId)));
+                commentService.saveComment(commentDTO, principal, postId));
     }
 
     @GetMapping("/{postId}/comments")
     public ResponseEntity<List<CommentDTO>> getAllPostComments(@PathVariable("postId") Long postId) {
-        return ResponseEntity.ok(commentFacade.commenstToCommentDtos(commentService.getAllCommentForPost(postId)));
+        return ResponseEntity.ok(commentService.getAllCommentForPost(postId));
     }
 
     @DeleteMapping("/{commentId}")

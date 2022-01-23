@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -30,21 +31,16 @@ public class CommentService {
         this.postService = postService;
     }
 
-    public Comment saveComment(CommentDTO commentDto, Principal principal, Long postId) {
+    public CommentDTO saveComment(CommentDTO commentDto, Principal principal, Long postId) {
         User user = userService.getCurrentUser(principal);
         Post post = postService.getPostById(postId);
-        Comment comment = new Comment();
-        comment.setMessage(commentDto.getMessage());
-        comment.setPost(post);
-        comment.setUsername(user.getUsername());
-        comment.setUserId(user.getId());
         LOG.info("Saving Comment for Post {}", post.getId());
-        return commentRepository.save(comment);
+        return commentToCommentDto(commentRepository.save(commentDTOtoComment(commentDto, user, post)));
     }
 
-    public List<Comment> getAllCommentForPost(Long postId) {
+    public List<CommentDTO> getAllCommentForPost(Long postId) {
         Post post = postService.getPostById(postId);
-        return commentRepository.findAllByPost(post);
+        return commentsToCommentDtos(commentRepository.findAllByPost(post));
     }
 
     public void deleteComment(Long commentId, Principal principal) {
@@ -57,4 +53,28 @@ public class CommentService {
             throw new AccessDeniedException("You cannot delete someone else's comment");
         }
     }
+
+    private CommentDTO commentToCommentDto(Comment comment) {
+        return CommentDTO.builder()
+                .id(comment.getId())
+                .message(comment.getMessage())
+                .username(comment.getUsername())
+                .build();
+    }
+
+    private List<CommentDTO> commentsToCommentDtos(List<Comment> comments) {
+        return comments.stream()
+                .map(this::commentToCommentDto)
+                .collect(Collectors.toList());
+    }
+
+    private Comment commentDTOtoComment(CommentDTO dto, User user, Post post) {
+        return Comment.builder()
+                .message(dto.getMessage())
+                .post(post)
+                .username(user.getUsername())
+                .userId(user.getId())
+                .build();
+    }
+
 }
