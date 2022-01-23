@@ -1,7 +1,10 @@
 package com.makridin.instazoo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +15,9 @@ import java.util.Set;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +25,6 @@ public class Post {
     private String title;
     private String caption;
     private String location;
-    private Integer likes;
 
     @Column
     @ElementCollection(targetClass = String.class)

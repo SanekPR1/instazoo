@@ -16,6 +16,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -32,22 +33,15 @@ public class PostService {
         this.imageRepository = imageRepository;
     }
 
-    public Post createPost(PostDTO postDto, Principal principal) {
+    public PostDTO createPost(PostDTO postDto, Principal principal) {
         User user = userService.getCurrentUser(principal);
-        Post post = new Post();
-        post.setUser(user);
-        post.setCaption(postDto.getCaption());
-        post.setLocation(postDto.getLocation());
-        post.setTitle(postDto.getTitle());
-        post.setLikes(0);
-
         LOG.info("Saving Post for User {}", user.getUsername());
-        return postRepository.save(post);
+        return postToPostDto(postRepository.save(postDTOToPost(postDto, user)));
 
     }
 
-    public List<Post> getAllPosts() {
-         return postRepository.findAllByOrderByCreatedDateDesc();
+    public List<PostDTO> getAllPosts() {
+         return postsToPostDtos(postRepository.findAllByOrderByCreatedDateDesc());
     }
 
     public Post getPostByIdAndUser(Long postId, Principal principal) {
@@ -61,20 +55,19 @@ public class PostService {
                 .orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
     }
 
-    public List<Post> getAllPostsForUser(Principal principal) {
+    public List<PostDTO> getAllPostsForUser(Principal principal) {
         User user = userService.getCurrentUser(principal);
-        return postRepository.findAllByUserOrderByCreatedDateDesc(user);
+        return postsToPostDtos(postRepository.findAllByUserOrderByCreatedDateDesc(user));
     }
 
-    public Post likePost(Long postId, Principal principal) {
+    public PostDTO likePost(Long postId, Principal principal) {
         User user = userService.getCurrentUser(principal);
          Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
          Set<String> usernames = post.getLikedUsers();
          if(!usernames.remove(user.getUsername())) {
              usernames.add(user.getUsername());
          }
-         post.setLikes(usernames.size());
-        return postRepository.save(post);
+        return postToPostDto(postRepository.save(post));
     }
 
     public void deletePost(Long id, Principal principal) {
@@ -82,5 +75,31 @@ public class PostService {
          Optional<ImageModel> image = imageRepository.findByPostId(post.getId());
          postRepository.delete(post);
          image.ifPresent(imageRepository::delete);
+    }
+
+    private PostDTO postToPostDto(Post post) {
+        return PostDTO.builder()
+                .id(post.getId())
+                .caption(post.getCaption())
+                .location(post.getLocation())
+                .title(post.getTitle())
+                .username(post.getUser().getUsername())
+                .userLiked(post.getLikedUsers())
+                .build();
+    }
+
+    private List<PostDTO> postsToPostDtos(List<Post> posts) {
+        return posts.stream()
+                .map(this::postToPostDto)
+                .collect(Collectors.toList());
+    }
+
+    private Post postDTOToPost(PostDTO dto, User user) {
+         return Post.builder()
+                 .user(user)
+                 .caption(dto.getCaption())
+                 .location(dto.getLocation())
+                 .title(dto.getTitle())
+                 .build();
     }
 }

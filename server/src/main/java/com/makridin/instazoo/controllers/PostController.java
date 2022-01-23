@@ -1,7 +1,6 @@
 package com.makridin.instazoo.controllers;
 
 import com.makridin.instazoo.dto.PostDTO;
-import com.makridin.instazoo.facade.PostFacade;
 import com.makridin.instazoo.payload.response.MessageResponse;
 import com.makridin.instazoo.service.PostService;
 import com.makridin.instazoo.validators.ResponseErrorValidation;
@@ -22,13 +21,11 @@ public class PostController {
 
     private final ResponseErrorValidation errorValidation;
     private final PostService postService;
-    private final PostFacade postFacade;
 
     @Autowired
-    public PostController(ResponseErrorValidation errorValidation, PostService postService, PostFacade postFacade) {
+    public PostController(ResponseErrorValidation errorValidation, PostService postService) {
         this.errorValidation = errorValidation;
         this.postService = postService;
-        this.postFacade = postFacade;
     }
 
     @PostMapping("/create")
@@ -39,17 +36,17 @@ public class PostController {
         if (!ObjectUtils.isEmpty(errors)) {
             return errors;
         }
-        return ResponseEntity.ok(postFacade.postToPostDto(postService.createPost(psotDto, principal)));
+        return ResponseEntity.ok(postService.createPost(psotDto, principal));
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<PostDTO>> getAllPosts() {
-        return ResponseEntity.ok(postFacade.postsToPostDtos(postService.getAllPosts()));
+        return ResponseEntity.ok(postService.getAllPosts());
     }
 
     @GetMapping("/user/posts")
     public ResponseEntity<List<PostDTO>> getAllUserPosts(Principal principal) {
-        return ResponseEntity.ok(postFacade.postsToPostDtos(postService.getAllPostsForUser(principal)));
+        return ResponseEntity.ok(postService.getAllPostsForUser(principal));
     }
 
     @PutMapping("/{postId}/like")
@@ -57,7 +54,7 @@ public class PostController {
             @PathVariable("postId") Long postId,
             Principal principal
     ) {
-        return ResponseEntity.ok(postFacade.postToPostDto(postService.likePost(postId, principal)));
+        return ResponseEntity.ok(postService.likePost(postId, principal));
     }
 
     @DeleteMapping("/{postId}")
