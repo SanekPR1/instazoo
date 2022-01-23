@@ -7,5 +7,5 @@ public interface SecurityConstants {
     String TOKEN_PREFIX = "Bearer ";
     String HEADER_STRING = "Authorization";
     String CONTENT_TYPE = "application/json";
-    long EXPIRATION_TIME = 600000;
+    long EXPIRATION_TIME = 86400000;
 }
