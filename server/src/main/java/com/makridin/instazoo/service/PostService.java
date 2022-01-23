@@ -34,7 +34,7 @@ public class PostService {
     }
 
     public PostDTO createPost(PostDTO postDto, Principal principal) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         LOG.info("Saving Post for User {}", user.getUsername());
         return postToPostDto(postRepository.save(postDTOToPost(postDto, user)));
 
@@ -45,7 +45,7 @@ public class PostService {
     }
 
     public Post getPostByIdAndUser(Long postId, Principal principal) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         return postRepository.findPostByIdAndUser(postId, user)
                 .orElseThrow(() -> new PostNotFoundException("The post wasn't found for user " + user.getUsername()));
     }
@@ -56,12 +56,12 @@ public class PostService {
     }
 
     public List<PostDTO> getAllPostsForUser(Principal principal) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         return postsToPostDtos(postRepository.findAllByUserOrderByCreatedDateDesc(user));
     }
 
     public PostDTO likePost(Long postId, Principal principal) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
          Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
          Set<String> usernames = post.getLikedUsers();
          if(!usernames.remove(user.getUsername())) {

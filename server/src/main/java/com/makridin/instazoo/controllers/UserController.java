@@ -1,7 +1,6 @@
 package com.makridin.instazoo.controllers;
 
 import com.makridin.instazoo.dto.UserDTO;
-import com.makridin.instazoo.facade.UserFacade;
 import com.makridin.instazoo.service.UserService;
 import com.makridin.instazoo.validators.ResponseErrorValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +18,22 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
-    private final UserFacade userFacade;
     private final ResponseErrorValidation errorValidation;
 
     @Autowired
-    public UserController(UserService userService, UserFacade userFacade, ResponseErrorValidation errorValidation) {
+    public UserController(UserService userService, ResponseErrorValidation errorValidation) {
         this.userService = userService;
-        this.userFacade = userFacade;
         this.errorValidation = errorValidation;
     }
 
     @GetMapping("/")
     public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
-        return ResponseEntity.ok(userFacade.userToUserDto(userService.getCurrentUser(principal)));
+        return ResponseEntity.ok(userService.getCurrentUser(principal));
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(userFacade.userToUserDto(userService.getUserById(userId)));
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 
     @PutMapping("/update")
@@ -50,6 +47,6 @@ public class UserController {
             return errors;
         }
 
-        return ResponseEntity.ok(userFacade.userToUserDto(userService.updateUser(userDTO, principal)));
+        return ResponseEntity.ok(userService.updateUser(userDTO, principal));
     }
 }

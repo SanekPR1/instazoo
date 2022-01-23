@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -40,36 +41,46 @@ public class UserService {
         }
     }
 
-    public User updateUser(UserDTO userDto, Principal principal) {
+    public UserDTO updateUser(UserDTO userDto, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setFirstname(userDto.getFirstname());
         user.setLastname(userDto.getLastname());
         user.setBio(userDto.getBio());
-        return userRepository.save(user);
+        return userToUserDto(userRepository.save(user));
     }
 
-    public User getCurrentUser(Principal principal) {
-        return getUserByPrincipal(principal);
+    public UserDTO getCurrentUser(Principal principal) {
+        return userToUserDto(getUserByPrincipal(principal));
     }
 
-    public User getUserById(Long userId) {
-        return userRepository.findUserById(userId)
-                .orElseThrow(() -> new UserExistException("User doesn't exist. User id=" + userId));
+    public UserDTO getUserById(Long userId) {
+        return userToUserDto(userRepository.findUserById(userId)
+                .orElseThrow(() -> new UserExistException("User doesn't exist. User id=" + userId)));
     }
 
-    private User getUserByPrincipal(Principal principal) {
+    protected User getUserByPrincipal(Principal principal) {
         return userRepository.findUserByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User with that username wasn't found"));
     }
 
     private User getUser(SignupRequest request) {
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setUsername(request.getUsername());
-        user.setLastname(request.getLastname());
-        user.setFirstname(request.getFirstname());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.getRoles().add(Roles.ROLE_USER);
-        return user;
+        return User.builder()
+                .email(request.getEmail())
+                .username(request.getUsername())
+                .lastname(request.getLastname())
+                .firstname(request.getFirstname())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .roles(Set.of(Roles.ROLE_USER))
+                .build();
+    }
+
+    private UserDTO userToUserDto(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .bio(user.getBio())
+                .build();
     }
 }

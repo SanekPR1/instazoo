@@ -34,7 +34,7 @@ public class ImageService {
     }
 
     public ImageModel uploadProfileImage(MultipartFile file, Principal principal) throws IOException {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
 
         ImageModel userProfileImage = imageRepository.findByUserId(user.getId()).orElse(null);
         if(!ObjectUtils.isEmpty(userProfileImage)) {
@@ -50,7 +50,7 @@ public class ImageService {
     }
 
     public ImageModel uploadPostImage(MultipartFile file, Principal principal, Long postId) throws IOException {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         Post post = user.getPosts()
                 .stream()
                 .filter(p -> p.getId().equals(postId))
@@ -65,7 +65,7 @@ public class ImageService {
     }
 
     public ImageModel getUserProfileImage(Principal principal) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         LOG.info("Uploading image profile to User {}", user.getUsername());
 
         ImageModel image = imageRepository.findByUserId(user.getId()).orElse(null);

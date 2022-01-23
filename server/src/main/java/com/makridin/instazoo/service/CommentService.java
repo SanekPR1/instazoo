@@ -32,7 +32,7 @@ public class CommentService {
     }
 
     public CommentDTO saveComment(CommentDTO commentDto, Principal principal, Long postId) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         Post post = postService.getPostById(postId);
         LOG.info("Saving Comment for Post {}", post.getId());
         return commentToCommentDto(commentRepository.save(commentDTOtoComment(commentDto, user, post)));
@@ -44,7 +44,7 @@ public class CommentService {
     }
 
     public void deleteComment(Long commentId, Principal principal) {
-        User user = userService.getCurrentUser(principal);
+        User user = userService.getUserByPrincipal(principal);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentNotFoundException("Comment wasn't found"));
         if(comment.getUserId() == user.getId() || comment.getPost().getUser().getId() == user.getId()) {

@@ -1,8 +1,7 @@
 package com.makridin.instazoo.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.makridin.instazoo.entity.enums.Roles;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +11,9 @@ import java.util.*;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 public class User implements UserDetails {
     @Id
@@ -41,8 +43,6 @@ public class User implements UserDetails {
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
-
-    public User() {}
 
     public User(Long id, String username, String email, String password,
                 Collection<? extends GrantedAuthority> authorities)
