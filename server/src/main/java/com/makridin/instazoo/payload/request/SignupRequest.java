@@ -4,7 +4,10 @@ import com.makridin.instazoo.annotations.PasswordMatches;
 import com.makridin.instazoo.annotations.UniqueEmail;
 import com.makridin.instazoo.annotations.UniqueUsername;
 import com.makridin.instazoo.annotations.ValidEmail;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -13,6 +16,9 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @PasswordMatches
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SignupRequest {
 
     @Email(message = "It should have email format")
