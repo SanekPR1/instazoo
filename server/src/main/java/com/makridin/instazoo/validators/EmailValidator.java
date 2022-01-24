@@ -1,6 +1,7 @@
 package com.makridin.instazoo.validators;
 
 import com.makridin.instazoo.annotations.ValidEmail;
+import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -18,6 +19,9 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
+        if(!StringUtils.hasText(email)) {
+            return false;
+        }
         return validateEmail(email);
     }
 
