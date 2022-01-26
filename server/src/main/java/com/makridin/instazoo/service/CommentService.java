@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class CommentService {
     public static final Logger LOG = LoggerFactory.getLogger(CommentService.class);
 
-    private final CommentRepository commentRepository;
-    private final UserService userService;
-    private final PostService postService;
+    private CommentRepository commentRepository;
+    private UserService userService;
+    private PostService postService;
 
     @Autowired
     public CommentService(CommentRepository commentRepository, UserService userService, PostService postService) {
@@ -47,7 +47,7 @@ public class CommentService {
         User user = userService.getUserByPrincipal(principal);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentNotFoundException("Comment wasn't found"));
-        if(comment.getUserId() == user.getId() || comment.getPost().getUser().getId() == user.getId()) {
+        if(comment.getUserId().equals(user.getId()) || comment.getPost().getUser().getId().equals(user.getId())) {
             commentRepository.delete(comment);
         } else {
             throw new AccessDeniedException("You cannot delete someone else's comment");
