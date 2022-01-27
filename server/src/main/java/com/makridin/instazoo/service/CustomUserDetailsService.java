@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     public CustomUserDetailsService(UserRepository repository) {
         this.userRepository = repository;
@@ -35,6 +35,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
-        return new User(user.getId(), user.getEmail(), user.getEmail(), user.getPassword(), authorities);
+        return new User(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities);
     }
 }
