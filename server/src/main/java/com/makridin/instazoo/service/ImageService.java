@@ -24,8 +24,8 @@ import java.util.zip.Inflater;
 public class ImageService {
     public static final Logger LOG = LoggerFactory.getLogger(ImageService.class);
 
-    private final ImageRepository imageRepository;
-    private final UserService userService;
+    private ImageRepository imageRepository;
+    private UserService userService;
 
     @Autowired
     public ImageService(ImageRepository imageRepository, UserService userService) {
@@ -80,9 +80,7 @@ public class ImageService {
         ImageModel image = imageRepository.findByPostId(postId)
                 .orElseThrow(() -> new ImageNotFoundException("Post image wasn't found. Post id = " + postId));
 
-        if(image != null) {
-            image.setImageBytes(decompressBytes(image.getImageBytes()));
-        }
+        image.setImageBytes(decompressBytes(image.getImageBytes()));
         return image;
     }
 
