@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 public class PostService {
     public static final Logger LOG = LoggerFactory.getLogger(PostService.class);
 
-     private final PostRepository postRepository;
-     private final UserService userService;
-     private final ImageRepository imageRepository;
+     private PostRepository postRepository;
+     private UserService userService;
+     private ImageRepository imageRepository;
 
      @Autowired
     public PostService(PostRepository postRepository, UserService userService, ImageRepository imageRepository) {
@@ -61,7 +61,7 @@ public class PostService {
     }
 
     public PostDTO likePost(Long postId, Principal principal) {
-        User user = userService.getUserByPrincipal(principal);
+         User user = userService.getUserByPrincipal(principal);
          Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("The post wasn't found"));
          Set<String> usernames = post.getLikedUsers();
          if(!usernames.remove(user.getUsername())) {
