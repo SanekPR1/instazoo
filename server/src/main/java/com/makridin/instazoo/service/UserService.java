@@ -20,8 +20,8 @@ import java.util.Set;
 public class UserService {
     public static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
