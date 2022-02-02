@@ -19,14 +19,11 @@ import java.util.List;
 @CrossOrigin
 public class CommentController {
 
-    private final ResponseErrorValidation errorValidation;
     private final CommentService commentService;
 
     @Autowired
-    public CommentController(
-            ResponseErrorValidation errorValidation, CommentService commentService)
+    public CommentController( CommentService commentService)
     {
-        this.errorValidation = errorValidation;
         this.commentService = commentService;
     }
 
@@ -34,13 +31,8 @@ public class CommentController {
     public ResponseEntity<Object> createComment(
             @Valid @RequestBody CommentDTO commentDTO,
             Principal principal,
-            @PathVariable("postId") Long postId,
-            BindingResult result
+            @PathVariable("postId") Long postId
     ) {
-        ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (!ObjectUtils.isEmpty(errors)) {
-            return errors;
-        }
 
         return ResponseEntity.ok(
                 commentService.saveComment(commentDTO, principal, postId));

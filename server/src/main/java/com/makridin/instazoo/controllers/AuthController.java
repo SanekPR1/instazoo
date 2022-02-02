@@ -28,8 +28,6 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private ResponseErrorValidation errorValidation;
-    @Autowired
     private UserService userService;
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -38,13 +36,8 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(
-            @Valid @RequestBody SignupRequest request, BindingResult result)
+            @Valid @RequestBody SignupRequest request)
     {
-        ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (!ObjectUtils.isEmpty(errors)) {
-            return errors;
-        }
-
         userService.createUser(request);
         return ResponseEntity.ok(new MessageResponse("User was registered successfully"));
     }
@@ -52,13 +45,8 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<Object> singIn (
-            @Valid @RequestBody LoginRequest request, BindingResult result)
+            @Valid @RequestBody LoginRequest request)
     {
-        ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (!ObjectUtils.isEmpty(errors)) {
-            return errors;
-        }
-
          Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
