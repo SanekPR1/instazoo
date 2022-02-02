@@ -37,7 +37,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignIn () {
-        setUp();
         createUser();
         String requestBody = "{\n" +
                 "    \"username\": \"Test\",\n" +
@@ -58,7 +57,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignInWrongCredentials () {
-        setUp();
         String body = "{\n" +
                 "    \"username\": \"Test1\",\n" +
                 "    \"password\": \"test\"\n" +
@@ -77,7 +75,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignInEmptyUsername () {
-        setUp();
         String body = "{\n" +
                 "    \"password\": \"test\"\n" +
                 "}";
@@ -96,7 +93,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignInEmptyPassword () {
-        setUp();
         String body = "{\n" +
                 "    \"username\": \"test\"\n" +
                 "}";
@@ -115,7 +111,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUp () {
-        setUp();
         ResponseEntity<MessageResponse> response = createUser();
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -125,7 +120,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpWrongPassword () {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
                 "    \"firstname\": \"Test\",\n" +
@@ -148,7 +142,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpWrongEmail () {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"testtest.io\",\n" +
                 "    \"firstname\": \"Test\",\n" +
@@ -171,7 +164,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpWrongFirstName() {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
                 "    \"lastname\": \"Test\",\n" +
@@ -193,7 +185,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpWrongLastName() {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
                 "    \"firstname\": \"Test\",\n" +
@@ -215,7 +206,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpWrongUsername() {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
                 "    \"firstname\": \"Test\",\n" +
@@ -238,7 +228,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpEmptyPassword() {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
                 "    \"firstname\": \"Test\",\n" +
@@ -260,7 +249,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpEmptyConfirmPassword() {
-        setUp();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
                 "    \"firstname\": \"Test\",\n" +
@@ -282,7 +270,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpUniqueEmail() {
-        setUp();
         createUser();
         String body = "{\n" +
                 "    \"email\": \"test@test.io\",\n" +
@@ -308,7 +295,6 @@ public class AuthControllerTest {
 
     @Test
     public void testSignUpUniqueUserName() {
-        setUp();
         createUser();
         String body = "{\n" +
                 "    \"email\": \"test1@test.io\",\n" +

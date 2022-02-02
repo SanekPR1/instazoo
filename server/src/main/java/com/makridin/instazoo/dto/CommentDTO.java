@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class CommentDTO {
     private Long id;
-    @NotEmpty
+    @NotEmpty(message = "This field is required")
     private String message;
     private String username;
 }
