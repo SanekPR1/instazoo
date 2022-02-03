@@ -28,7 +28,7 @@ public class CommentController {
     }
 
     @PostMapping("/{postId}/create")
-    public ResponseEntity<Object> createComment(
+    public ResponseEntity<CommentDTO> createComment(
             @Valid @RequestBody CommentDTO commentDTO,
             Principal principal,
             @PathVariable("postId") Long postId
@@ -44,7 +44,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<Object> deleteComment(
+    public ResponseEntity<MessageResponse> deleteComment(
             @PathVariable("commentId") Long commentId,
             Principal principal
     ) {
