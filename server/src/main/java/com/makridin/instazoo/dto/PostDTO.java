@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Data
@@ -13,6 +14,7 @@ import java.util.Set;
 @Builder
 public class PostDTO {
     private Long id;
+    @NotEmpty(message = "Title is required")
     private String title;
     private String caption;
     private String location;

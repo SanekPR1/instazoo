@@ -19,24 +19,18 @@ import java.util.List;
 @CrossOrigin
 public class PostController {
 
-    private final ResponseErrorValidation errorValidation;
-    private final PostService postService;
+    private PostService postService;
 
     @Autowired
-    public PostController(ResponseErrorValidation errorValidation, PostService postService) {
-        this.errorValidation = errorValidation;
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 
     @PostMapping("/create")
     public ResponseEntity<Object> createPost(
-            @Valid @RequestBody PostDTO psotDto, Principal principal, BindingResult result)
+            @Valid @RequestBody PostDTO postDTO, Principal principal, BindingResult result)
     {
-        ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (!ObjectUtils.isEmpty(errors)) {
-            return errors;
-        }
-        return ResponseEntity.ok(postService.createPost(psotDto, principal));
+        return ResponseEntity.ok(postService.createPost(postDTO, principal));
     }
 
     @GetMapping("/all")
