@@ -361,6 +361,38 @@ public class PostControllerTest {
         Assertions.assertTrue(userPosts.getBody().isEmpty());
     }
 
+    @Test
+    public void testDeletePostAnotherUsersPost() {
+        headers.add("Authorization", getToken());
+        createUser("Test1", "test1@test.io");
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+        ResponseEntity<PostDTO> postOne = createPost();
+
+        ResponseEntity<List> userPosts = restTemplate.exchange(
+                createURLWithPort("/post/user/posts"),
+                HttpMethod.GET, entity, List.class);
+
+        Map<String, Object> post = (Map<String, Object>)userPosts.getBody().get(0);
+        Assertions.assertEquals(postOne.getBody().getId(), ((Integer)post.get("id")).longValue());
+
+        headers.remove("Authorization");
+        headers.add("Authorization", getUserToken("Test1", "test"));
+
+        ResponseEntity<Map> response = restTemplate.exchange(
+                createURLWithPort("/post/" + postOne.getBody().getId()),
+                HttpMethod.DELETE, entity, Map.class);
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+
+        headers.remove("Authorization");
+        headers.add("Authorization", getToken());
+        userPosts = restTemplate.exchange(
+                createURLWithPort("/post/user/posts"),
+                HttpMethod.GET, entity, List.class);
+        post = (Map<String, Object>)userPosts.getBody().get(0);
+        Assertions.assertEquals(postOne.getBody().getId(), ((Integer)post.get("id")).longValue());
+    }
+
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + "/api" + uri;
     }
