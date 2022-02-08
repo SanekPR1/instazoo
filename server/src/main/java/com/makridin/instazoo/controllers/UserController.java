@@ -18,12 +18,10 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
-    private final ResponseErrorValidation errorValidation;
 
     @Autowired
-    public UserController(UserService userService, ResponseErrorValidation errorValidation) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.errorValidation = errorValidation;
     }
 
     @GetMapping("/")
@@ -42,11 +40,6 @@ public class UserController {
             Principal principal,
             BindingResult result
     ) {
-        ResponseEntity<Object> errors = errorValidation.mapValidationService(result);
-        if (!ObjectUtils.isEmpty(errors)) {
-            return errors;
-        }
-
         return ResponseEntity.ok(userService.updateUser(userDTO, principal));
     }
 }
